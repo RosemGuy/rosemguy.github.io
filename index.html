@@ -1,277 +1,559 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>North Collective Studio</title>
-    <style>
-        
-        * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box; 
-        }
-        
-        body {
-            background-color: #000;
-            color: #fff;
-            overflow-x: hidden;
-            font-family: "Courier New", Courier, monospace;     
-            animation: fadeInPage 1.2s ease-in-out;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
+<meta charset="UTF-8">
+<title>RosemaryDude Website</title>
 
-        @keyframes fadeInPage {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+<audio id="bg-music" loop hidden>
+    <source src="https://dick.eversiege.pics/shareables/non4ebk9bwyo/Ya%20Soshla%20S%20Uma%20%28Very%20First%20Version%29.mp3" type="audio/mpeg">
+</audio>
 
-        
-        .header-container {
-            width: 100%;
-            height: 80px; 
-            background: url('img/topgradient.png') repeat-x;
-            background-size: contain;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: relative;
-            z-index: 10;
-        }
+<audio id="radio-stream" loop hidden>
+    <source src="https://fm.lisikpng.com/FoxFM" type="audio/mpeg">
+</audio>
 
-        .brand-zone {
-            display: flex;
-            align-items: center;
-            height: 100%;
-            padding-left: 10px;
-        }
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        .brand-zone img {
-            height: 90%; 
-            display: block;
-        }
+<style>
 
-        .nav-zone {
-            display: flex;
-            height: 100%;
-            padding-right: 20px; 
-        }
+body {
+    margin: 0;
+    font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+    color: hsl(294, 100%, 95%);
+    background: url("https://dick.eversiege.pics/shareables/pqdpzztdxu3w/background.jpg") no-repeat center center fixed;
+    background-size: cover;
+    text-shadow: 1px 1px 2px #000;
+    overflow-x: hidden;
+}
 
-        .nav-button {
-            display: block;
-            height: 100%;
-            position: relative;
-            width: 110px;
-        }
 
-        .nav-button img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
-            display: block;
-        }
+.card {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 25px;
+    background: rgba(15, 5, 25, 0.65);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-top: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 8px;
+    box-shadow: 0 0 25px rgba(224, 0, 255, 0.4), inset 0 0 15px rgba(255, 255, 255, 0.1);
+}
 
-        .nav-link { cursor: pointer; }
-        .nav-link img { transition: opacity 0.4s ease-in-out; }
-        .nav-link img.static { opacity: 1; z-index: 2; }
-        .nav-link img.active { opacity: 0; z-index: 1; }
-        .nav-link:hover img.static { opacity: 0; }
-        .nav-link:hover img.active { opacity: 1; }
 
-        .nav-static { cursor: default; }
-        .nav-static img { opacity: 1; z-index: 2; }
+.tabs-nav {
+    display: flex;
+    gap: 5px;
+    border-bottom: 2px solid rgba(0, 255, 255, 0.4);
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+}
 
-        
-        .hero-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            padding: 50px 20px;
-        }
+.tab-btn {
+    background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.4) 100%);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-bottom: none;
+    color: #00ffff;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: bold;
+    border-radius: 5px 5px 0 0;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
 
-        .main-statue {
-            width: 300px;
-            max-width: 80%;
-            margin-bottom: 25px;
-            filter: drop-shadow(0 0 15px rgba(255,255,255,0.05));
-        }
+.tab-btn:hover {
+    background: rgba(0, 255, 255, 0.2);
+    color: #fff;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
 
-        .hero-title {
-            font-size: 24px;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            margin-bottom: 15px;
-        }
+.tab-btn.active {
+    background: linear-gradient(180deg, rgba(0, 255, 255, 0.3) 0%, rgba(55, 0, 255, 0.4) 100%);
+    color: #ffffff;
+    border-color: rgba(0, 255, 255, 0.6);
+    border-bottom: 1px solid transparent;
+    text-shadow: 0 0 5px #00ffff;
+}
 
-        .hero-subtitle {
-            font-size: 14px;
-            color: #aaa;
-            max-width: 600px;
-            line-height: 1.6;
-        }
+.tab-content {
+    display: none;
+}
 
-        
-        .main-grid {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 25px;
-            padding: 40px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-            flex: 1; 
-        }
+.tab-content.active {
+    display: block;
+    animation: fadeIn 0.4s ease;
+}
 
-        .external-card {
-            text-decoration: none;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid #222;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            background: #0a0a0a;
-        }
 
-        .external-card::after {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.8) 100%);
-            pointer-events: none;
-            transition: opacity 0.3s;
-        }
+.project-card {
+    display: flex;
+    gap: 15px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    border-radius: 6px;
+    padding: 15px;
+    margin-bottom: 20px;
+    align-items: center;
+}
 
-        .external-card img {
-            display: block;
-            width: 320px; 
-            height: auto;
-            transition: filter 0.3s, transform 0.6s;
-        }
+.project-img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border: 2px solid #ff00ff;
+    border-radius: 4px;
+    box-shadow: 0 0 8px #ff00ff;
+    flex-shrink: 0;
+}
 
-        .external-card:hover {
-            transform: translateY(-8px);
-            border-color: #444;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
-        }
+.project-info {
+    flex-grow: 1;
+}
 
-        .external-card:hover img {
-            transform: scale(1.05); 
-            filter: brightness(1.1);
-        }
+.project-info h3 {
+    margin: 0 0 5px 0;
+    color: #00ffff;
+}
 
-        
-        footer {
-            padding: 40px 20px;
-            border-top: 1px solid #222;
-            text-align: center;
-            background-color: #000;
-        }
 
-        .footer-socials {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-bottom: 20px;
-        }
+.deskpet-download-window {
+    background: rgba(20, 5, 30, 0.6);
+    border: 2px solid #ffff00;
+    border-radius: 6px;
+    padding: 20px;
+    margin-top: 25px;
+    box-shadow: 0 0 15px rgba(255, 255, 0, 0.15);
+}
 
-        .social-link {
-            color: #fff;
-            text-decoration: none;
-            font-size: 12px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            transition: color 0.3s;
-        }
+.deskpet-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
 
-        .social-link:hover {
-            color: #aaa;
-        }
+.deskpet-icon {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    border: 1px solid #ffff00;
+    background: rgba(0,0,0,0.3);
+    padding: 4px;
+}
 
-        .copyright {
-            font-size: 10px;
-            color: #555;
-            letter-spacing: 1px;
-        }
+.deskpet-meta {
+    font-size: 0.9em;
+    color: #bba2cd;
+    line-height: 1.4;
+}
 
-        
-        @media (max-width: 768px) {
-            .header-container { height: 60px; }
-            .nav-button { width: 80px; }
-            
-            .hero-title { font-size: 18px; letter-spacing: 2px; }
-            .hero-subtitle { font-size: 12px; }
-            .main-statue { width: 200px; }
+.deskpet-meta b {
+    color: #ffff00;
+}
 
-            .external-card img {
-                width: 100%; 
-                max-width: 400px;
-            }
+.download-btn-wrapper {
+    text-align: center;
+    margin: 20px 0 10px 0;
+}
 
-            .footer-socials {
-                flex-direction: column;
-                gap: 15px;
-            }
-        }
-    </style>
+.download-exe-btn {
+    display: inline-block;
+    background: linear-gradient(180deg, #ffff00 0%, #ffcc00 100%);
+    color: #000;
+    font-weight: bold;
+    font-size: 1.1em;
+    padding: 12px 30px;
+    text-decoration: none;
+    border-radius: 4px;
+    border: 2px solid #fff;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.4), inset 0 2px 0 rgba(255,255,255,0.5);
+    text-shadow: none;
+    transition: all 0.2s ease;
+}
+
+.download-exe-btn:hover {
+    background: #fff;
+    color: #ff00ff;
+    box-shadow: 0 0 25px #ff00ff;
+    transform: scale(1.03);
+}
+
+
+.radio-player {
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid #00ffff;
+    border-radius: 6px;
+    padding: 15px;
+    margin: 20px 0;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+}
+
+.radio-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-weight: bold;
+    color: #ff00ff;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.status-dot {
+    width: 10px;
+    height: 10px;
+    background-color: #ff00ff;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #ff00ff;
+    animation: blink 1s infinite;
+}
+
+.radio-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.radio-btn {
+    background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, rgba(0,0,0,0.6) 100%);
+    border: 1px solid #ffff00;
+    color: #ffff00;
+    padding: 8px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 4px;
+    font-family: inherit;
+    transition: 0.2s;
+}
+
+.radio-btn:hover {
+    background: #ffff00;
+    color: #000;
+    box-shadow: 0 0 10px #ffff00;
+}
+
+.volume-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #00ffff;
+    font-weight: bold;
+}
+
+.volume-slider {
+    cursor: pointer;
+    accent-color: #00ffff;
+}
+
+h1 { color: #ff00ff; font-size: 2.2em; text-align: center; margin-top: 0; text-shadow: 0 0 8px #ff00ff; }
+h2 { color: #00ffff; font-size: 1.4em; border-bottom: 1px dashed rgba(0,255,255,0.4); padding-bottom: 5px; margin-top: 20px; }
+
+a { color: #ffff00; text-decoration: underline; transition: color 0.2s; }
+a:hover { color: #ff0055; text-shadow: 0 0 5px #ff0055; }
+
+.row { 
+    display: flex; 
+    justify-content: space-between; 
+    margin: 10px 0; 
+    padding: 8px; 
+    background: rgba(255,255,255,0.03); 
+    border-radius: 4px;
+    border-left: 3px solid #3700ff;
+}
+.nick { color: #00ffff; font-weight: bold; text-shadow: 0 0 10px #00ffff; }
+
+
+#ad-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.ad-window {
+    width: 320px;
+    background: #c0c0c0;
+    border: 3px outset #fff;
+    color: #000;
+    text-shadow: none;
+    box-shadow: 10px 10px 0 rgba(0,0,0,0.5);
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.ad-header {
+    background: linear-gradient(90deg, #000080, #0080ff);
+    color: white;
+    padding: 4px 6px;
+    display: flex;
+    justify-content: space-between;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+#run-away-x {
+    cursor: pointer;
+    position: relative;
+    transition: all 0.1s ease;
+    display: inline-block;
+    padding: 0 4px;
+}
+
+.ad-body { padding: 15px; text-align: center; font-size: 0.9em; }
+.ad-body img { width: 100px; margin-bottom: 10px; }
+.ad-close-btn { cursor: pointer; background: #c0c0c0; border: 2px outset #fff; padding: 5px 20px; font-weight: bold; }
+
+
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+h1 { animation: blink 3s infinite; }
+</style>
 </head>
+
 <body>
 
-    <header class="header-container">
-        <div class="brand-zone">
-            <img src="img/logo.png" alt="Логотип НКС">
+<div id="ad-overlay">
+    <div class="ad-window" id="ad-box">
+        <div class="ad-header">
+            <span>Important Message</span>
+            <span id="run-away-x" onmouseover="runAway()" onclick="runAway()">[X]</span>
+        </div>
+        <div class="ad-body">
+            <img src="https://dick.eversiege.pics/shareables/fvhknmerk3hc/rdudecatspining.gif" alt="Cat">
+            <p><b>Hey Hey Buddy!</b><br>This website has live radio so turn on autoplay.<br>Click OK to pick up the cat girl!</p>
+            <button class="ad-close-btn" onclick="closeAd()">OK</button>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <h1>Welcome to <span class="nick">RosemaryDude</span></h1>
+
+    <div class="tabs-nav">
+        <button class="tab-btn active" onclick="openTab(event, 'main')">Home</button>
+        <button class="tab-btn" onclick="openTab(event, 'projects')">Projects & RosemField</button>
+        <button class="tab-btn" onclick="openTab(event, 'music')">FoxFM Radio</button>
+        <button class="tab-btn" onclick="openTab(event, 'fun')">Files & Fun</button>
+    </div>
+
+    <div id="main" class="tab-content active">
+        <p>
+            Hi i'm RosemaryDude (aka TimurG) 16 Years Old<br>
+            And this is my personal website with my projects and links<br><br>
+            ➤ Artist ✎ <br>
+            ➤ RPG game developer ✩ <br>
+            ➤ Voice actor <br>
+            ➤ Techno geek ▢ <br>
+        </p>
+
+        <h2>Contacts / Links</h2>
+        <div class="row"><span>Email</span><a href="mailto:rosemguy@icloud.com">rosemguy@icloud.com</a></div>
+        <div class="row"><span>Telegram</span><a href="https://t.me/JustTimurG">@JustTimurG</a></div>
+        <div class="row"><span>Links for Channels</span><a href="https://t.me/linksrosemguy">t.me/linksrosemguy</a></div>
+    </div>
+
+    <div id="projects" class="tab-content">
+        <h2>Game Projects & Development</h2>
+        <p>Here are the key projects and ongoing developments and where im working.</p>
+        
+        <div class="project-card">
+            <img class="project-img" src="https://dick.eversiege.pics/shareables/a428dbp0byd4/avatar.png" alt="ROSEMARY FIELD Logo">
+            <div class="project-info">
+                <h3>ROSEMARY FIELD <span style="color: #ffff00; font-size: 0.8em;">[In Development!]</span></h3>
+                <p style="font-size: 0.85em; margin: 0 0 8px 0; color: #bba2cd;">
+                    The main RPG project currently in active development. Follow updates, screenshots, and lore on the official channel.
+                </p>
+                <a href="https://t.me/rosemfield" target="_blank">Open Telegram Channel</a>
+            </div>
         </div>
 
-        <nav class="nav-zone">
-            <div class="nav-button nav-static">
-                <img src="img/home_buttonACT.png" alt="Главная страница">
+        <div class="project-card">
+            <img class="project-img" src="https://dick.eversiege.pics/shareables/jmpkn8b7a556/ncslogo.jpg" alt="NCS Logo">
+            <div class="project-info">
+                <h3>North Collective Studio</h3>
+                <p style="font-size: 0.85em; margin: 0 0 8px 0; color: #bba2cd;">
+                    Photos, edits, dubbing, music, web series, and much more!.
+                </p>
+                <a href="https://northcollectivestudio.github.io/" target="_blank">Visit Studio Website</a>
+            </div>
+        </div>
+
+        <h2>Software Releases / Utilities</h2>
+        <div class="deskpet-download-window">
+            <div class="deskpet-header">
+                <img class="deskpet-icon" src="https://dick.eversiege.pics/shareables/fvhknmerk3hc/rdudecatspining.gif" alt="Deskpet Icon">
+                <div>
+                    <h3 style="margin: 0; color: #ffff00; font-size: 1.2em;">RosemDude Cat Deskpet 2003</h3>
+                    <span style="font-size: 0.8em; color: #00ff00; font-weight: bold;">✓ Verified by No one but its true (0 viruses)</span>
+                </div>
             </div>
             
-            <a href="about.html" class="nav-button nav-link">
-                <img src="img/about_button.png" alt="О нас" class="static">
-                <img src="img/about_buttonACT.png" alt="О нас(наводка хых)" class="active">
-            </a>
-            <a href="staff.html" class="nav-button nav-link">
-                <img src="img/staff_button.png" alt="Персонал" class="static">
-                <img src="img/staff_buttonACT.png" alt="Персонал(наводка хых)" class="active"> 
-            </a>
-        </nav>
-    </header>
+            <div class="deskpet-meta">
+                <b>Version:</b> v1.0.0 (Useless Build)<br>
+                <b>Platform:</b> 10 / 11<br>
+                <b>Description:</b> Your personal pocket cat assistant right on your desktop. Walks over your windows, drops cringe and cool voice lines, sits on your taskbar, and monitors your FPS. True desktop pet aesthetics straight out of 2003.
+            </div>
 
-    <section class="hero-section">
-        <img src="img/logo big.jpg" alt="Statue" class="main-statue">
-        
-        <h1 class="hero-title">Welcome to [North Collective Studio]</h1>
-        <p class="hero-subtitle">
-            Фотографии, эдиты, дубляж, музыка, веб сериалы и много другого стаффа!
-        </p>
-    </section>
-
-    <main class="main-grid">
-        <a href="projectkant.html" target="_self" class="external-card">
-            <img src="projects/projectkant/logo.png" alt="Карточка Проекта 1">
-        </a>
-        <a href="rosemfield.html" target="_self" class="external-card">
-            <img src="projects/rf/logomain.png" alt="Карточка Проекта 2">
-        </a>
-        <a href="comingsoon.html" target="_self " class="external-card">
-            <img src="img/comingsoon.png" alt="Карточка Проекта 3">
-        </a>
-    </main>
-
-    <footer>
-        <div class="footer-socials">
-            <a href="https://t.me/NORTHCOLLECTIVECH" class="social-link">Telegram</a>
-            <a href="https://www.youtube.com/@NORTHCOLLECTIVESTUDIO" class="social-link">YouTube</a>
-            <a href="https://www.tiktok.com/@NORTHCOLLECTIVESTUDIO" class="social-link">Tiktok</a>
-            <a href="https://discord.gg/PkZDTJNb5T" class="social-link">Discord</a>
-            <a href="https://rosemguy.github.io/RDwebsite/" class="social-link">Made By RosemaryDude</a>
+            <div class="download-btn-wrapper">
+                <a href="https://dick.eversiege.pics/shareables/wctqs013warq/RosemDudeCatDeskPet2003-v1.zip" class="download-exe-btn" target="_blank">DOWNLOAD DESKPET.EXE</a>
+            </div>
         </div>
-        <p class="copyright">© 2026 NORTH COLLECTIVE STUDIO. ALL RIGHTS RESERVED.</p>
-    </footer>
+    </div>
+
+    <div id="music" class="tab-content">
+        <h2>FoxFM Live Radio</h2>
+        <p>Live stream of the internet radio station. Background music will pause when you switch to this tab!</p>
+        
+        <div class="radio-player">
+            <div class="radio-status">
+                <div class="status-dot"></div>
+                <span>FoxFM LIVE ON AIR</span>
+            </div>
+            <div class="radio-controls">
+                <button class="radio-btn" onclick="playRadio()">PLAY</button>
+                <button class="radio-btn" onclick="pauseRadio()">PAUSE</button>
+                <div class="volume-box">
+                    <span>VOLUME:</span>
+                    <input type="range" class="volume-slider" min="0" max="1" step="0.05" value="0.5" oninput="changeVolume(this.value)">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <span>Or just listening by this link on aimp or webrowser:</span>
+            <a href="https://fm.lisikpng.com/FoxFM" target="_blank">fm.lisikpng.com/FoxFM</a>
+        </div>
+    </div>
+
+    <div id="fun" class="tab-content">
+        <h2>FunHub / Media Files</h2>
+        <p>Direct links to local jokes, videos, and archives:</p>
+
+        <div class="row"><span>iPhone 4 NONUI FIRMWARE</span><a href="https://dick.eversiege.pics/shareables/5rzwptn4cjmk/SwitchboardOS5.1_iPhone3%2C1_Custom_Untether_Logo.ipsw" target="_blank">Download</a></div>
+        <div class="row"><span>Meme #1 (MP4)</span><a href="https://dick.eversiege.pics/uploads/cb6d82d744394e00.mp4" target="_blank">Watch / Download</a></div>
+        <div class="row"><span>Meme #2 (MP4)</span><a href="https://dick.eversiege.pics/uploads/kfQTVttznULU7DEUPqzYAtaeWm8Am6Y.mp4" target="_blank">Watch / Download</a></div>
+        <div class="row"><span>Meme #3 (MP4)</span><a href="https://dick.eversiege.pics/uploads/bd179465385e05ed449089ff71bd3698df29ac274a059a02e825a787af3c04e17541f637ebc502eed0e90fe213a82c3cfab745fb7dfa1a6401f050d593398e0e.mp4" target="_blank">Watch / Download</a></div>
+        <div class="row"><span>Tashtagole (MP4)</span><a href="https://dick.eversiege.pics/uploads/DPFtSqtKDn_tashgatools.mp4" target="_blank">Watch / Download</a></div>
+        <div class="row"><span>Durov 3000 (MP4)</span><a href="https://dick.eversiege.pics/uploads/durov-3000.mp4" target="_blank">Watch / Download</a></div>
+    </div>
+
+    <div style="text-align: center; margin-top: 30px; border-top: 1px dashed rgba(255,255,255,0.2); padding-top: 15px;">
+        <img src="https://dick.eversiege.pics/shareables/fvhknmerk3hc/rdudecatspining.gif" width="80" alt="Spinning Cat">
+        <p style="font-size: 0.8em; color: #8a739b;">RosemaryDude 2023-2026 Powered by EVERSIEGE WebStorage</p>
+    </div>
+</div>
+
+<audio id="sfx-run" src="https://dick.eversiege.pics/uploads/engineer_no01.mp3"></audio>
+
+<script>
+const bgMusic = document.getElementById('bg-music');
+const radioStream = document.getElementById('radio-stream');
+
+bgMusic.volume = 0.4;
+radioStream.volume = 0.5;
+
+
+function openTab(evt, tabName) {
+    const tabContents = document.getElementsByClassName("tab-content");
+    for (let i = 0; i < tabContents.length; i++) {
+        tabContents[i].classList.remove("active");
+    }
+
+    const tabBtns = document.getElementsByClassName("tab-btn");
+    for (let i = 0; i < tabBtns.length; i++) {
+        tabBtns[i].classList.remove("active");
+    }
+
+    document.getElementById(tabName).classList.add("active");
+    evt.currentTarget.classList.add("active");
+
+
+    if (tabName === 'music') {
+        bgMusic.pause(); 
+        playRadio();     
+    } else {
+        radioStream.pause(); 
+        if (document.getElementById('ad-overlay').style.display === 'none') {
+            bgMusic.play().catch(e => {});
+        }
+    }
+}
+
+
+function playRadio() {
+    radioStream.play().catch(e => console.log("Radio stream blocked by browser policy"));
+}
+
+function pauseRadio() {
+    radioStream.pause();
+}
+
+function changeVolume(val) {
+    radioStream.volume = val;
+}
+
+function closeAd() {
+    document.getElementById('ad-overlay').style.display = 'none';
+    bgMusic.play().catch(e => console.log("Autoplay blocked by browser policy"));
+}
+
+function runAway() {
+    const x = document.getElementById('run-away-x');
+    const sfx = document.getElementById('sfx-run');
+    
+    sfx.currentTime = 0; 
+    sfx.play().catch(e => {});
+    
+    const randomX = Math.floor(Math.random() * 200) - 100;
+    const randomY = Math.floor(Math.random() * 200);
+    x.style.transform = `translate(${randomX}px, ${randomY}px)`;
+}
+
+function warnUser() {
+    console.log("%cSTOP!", "color: red; font-size: 30px; font-weight: bold;");
+}
+
+
+document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+});
+
+document.onkeydown = function(e) {
+    if(
+        e.keyCode == 123 || 
+        (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) || 
+        (e.ctrlKey && e.keyCode == 85) 
+    ) {
+        warnUser();
+        return false;
+    }
+};
+
+setInterval(function() {
+    const startTime = performance.now();
+    debugger; 
+    const endTime = performance.now();
+    if (endTime - startTime > 100) {
+        document.body.innerHTML = `
+            <div style="background:black; color:red; height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; font-family:monospace;">
+                <h1>DEV TOOLS DETECTED!</h1>
+                <p style="font-size:1.8em;">WTF ARE YOU DOING HERE? Please just go back</p>
+                <img src="https://dick.eversiege.pics/uploads/wtfareyoudoinghere.png" width="200">
+                <button onclick="location.reload()" style="margin-top:20px; padding:10px 20px; cursor:pointer; font-weight:bold;">GO BACK</button>
+            </div>
+        `;
+    }
+}, 1000);
+</script>
 
 </body>
 </html>
