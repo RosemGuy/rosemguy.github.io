@@ -1,221 +1,277 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<title>RosemaryDude Website</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>North Collective Studio</title>
+    <style>
+        
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        body {
+            background-color: #000;
+            color: #fff;
+            overflow-x: hidden;
+            font-family: "Courier New", Courier, monospace;     
+            animation: fadeInPage 1.2s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
 
-<audio id="bg-music" autoplay loop hidden>
-    <source src="https://dick.eversiege.pics/shareables/non4ebk9bwyo/Ya%20Soshla%20S%20Uma%20%28Very%20First%20Version%29.mp3" type="audio/mpeg">
-</audio>
+        @keyframes fadeInPage {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        .header-container {
+            width: 100%;
+            height: 80px; 
+            background: url('img/topgradient.png') repeat-x;
+            background-size: contain;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            z-index: 10;
+        }
 
-<style>
-body {
-    margin: 0;
-    font-family: "Courier New", monospace;
-    color: hsl(294, 100%, 92%);
-    background: url("https://dick.eversiege.pics/shareables/pqdpzztdxu3w/background.jpg") no-repeat center center fixed;
-    background-size: cover;
-    text-shadow: 1px 1px 0 #000;
-}
+        .brand-zone {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            padding-left: 10px;
+        }
 
-.card {
-    max-width: 600px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: rgba(0,0,0,0.7);
-    border: 3px double #3700ff;
-    box-shadow: 0 0 15px hsl(288, 100%, 50%);
-}
+        .brand-zone img {
+            height: 90%; 
+            display: block;
+        }
 
-.music-link {
-    display: block;
-    text-align: center;
-    margin: 15px 0;
-    padding: 12px;
-    border: 2px solid #ffff00;
-    background: rgba(255, 255, 0, 0.1);
-    color: #ffff00;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 1.1em;
-    transition: 0.3s;
-}
+        .nav-zone {
+            display: flex;
+            height: 100%;
+            padding-right: 20px; 
+        }
 
-.music-link:hover {
-    background: #ffff00;
-    color: #000;
-    box-shadow: 0 0 20px #ffff00;
-}
+        .nav-button {
+            display: block;
+            height: 100%;
+            position: relative;
+            width: 110px;
+        }
 
-h1 { color: #ff00ff; font-size: 2em; text-align: center; }
-h2 { color: #00ffff; font-size: 1.5em; border-bottom: 2px dashed #3700ff; padding-bottom: 5px; margin-top: 20px; }
+        .nav-button img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            display: block;
+        }
 
-a { color: #ffff00; text-decoration: underline; }
-a:hover { color: #ff0000; }
+        .nav-link { cursor: pointer; }
+        .nav-link img { transition: opacity 0.4s ease-in-out; }
+        .nav-link img.static { opacity: 1; z-index: 2; }
+        .nav-link img.active { opacity: 0; z-index: 1; }
+        .nav-link:hover img.static { opacity: 0; }
+        .nav-link:hover img.active { opacity: 1; }
 
-.row { display: flex; justify-content: space-between; margin: 8px 0; }
-.nick { color: hsl(258, 100%, 50%); font-weight: bold; text-decoration: underline; }
+        .nav-static { cursor: default; }
+        .nav-static img { opacity: 1; z-index: 2; }
 
-/* Рекламное окно */
-#ad-overlay {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.85);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-}
+        
+        .hero-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 50px 20px;
+        }
 
-.ad-window {
-    width: 320px;
-    background: #c0c0c0;
-    border: 3px outset #fff;
-    color: #000;
-    text-shadow: none;
-    box-shadow: 10px 10px 0 rgba(0,0,0,0.5);
-    position: relative;
-    padding-bottom: 10px;
-}
+        .main-statue {
+            width: 300px;
+            max-width: 80%;
+            margin-bottom: 25px;
+            filter: drop-shadow(0 0 15px rgba(255,255,255,0.05));
+        }
 
-.ad-header {
-    background: linear-gradient(90deg, #000080, #0080ff);
-    color: white;
-    padding: 4px 6px;
-    display: flex;
-    justify-content: space-between;
-    font-family: sans-serif;
-    font-weight: bold;
-}
+        .hero-title {
+            font-size: 24px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
 
-#run-away-x {
-    cursor: pointer;
-    position: relative;
-    transition: all 0.1s ease;
-    display: inline-block;
-    padding: 0 4px;
-}
+        .hero-subtitle {
+            font-size: 14px;
+            color: #aaa;
+            max-width: 600px;
+            line-height: 1.6;
+        }
 
-.ad-body { padding: 15px; text-align: center; font-size: 0.9em; }
-.ad-body img { width: 100px; margin-bottom: 10px; }
-.ad-close-btn { cursor: pointer; background: #c0c0c0; border: 2px outset #fff; padding: 5px 20px; font-weight: bold; }
+        
+        .main-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex: 1; 
+        }
 
-@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-h1, h2, .row span, .music-link { animation: blink 2s infinite; }
-</style>
+        .external-card {
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #222;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: #0a0a0a;
+        }
+
+        .external-card::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.8) 100%);
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .external-card img {
+            display: block;
+            width: 320px; 
+            height: auto;
+            transition: filter 0.3s, transform 0.6s;
+        }
+
+        .external-card:hover {
+            transform: translateY(-8px);
+            border-color: #444;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+        }
+
+        .external-card:hover img {
+            transform: scale(1.05); 
+            filter: brightness(1.1);
+        }
+
+        
+        footer {
+            padding: 40px 20px;
+            border-top: 1px solid #222;
+            text-align: center;
+            background-color: #000;
+        }
+
+        .footer-socials {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+
+        .social-link {
+            color: #fff;
+            text-decoration: none;
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .social-link:hover {
+            color: #aaa;
+        }
+
+        .copyright {
+            font-size: 10px;
+            color: #555;
+            letter-spacing: 1px;
+        }
+
+        
+        @media (max-width: 768px) {
+            .header-container { height: 60px; }
+            .nav-button { width: 80px; }
+            
+            .hero-title { font-size: 18px; letter-spacing: 2px; }
+            .hero-subtitle { font-size: 12px; }
+            .main-statue { width: 200px; }
+
+            .external-card img {
+                width: 100%; 
+                max-width: 400px;
+            }
+
+            .footer-socials {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
 </head>
-
 <body>
 
-<div id="ad-overlay">
-    <div class="ad-window" id="ad-box">
-        <div class="ad-header">
-            <span>Important Message</span>
-            <span id="run-away-x" onmouseover="runAway()" onclick="runAway()">[X]</span>
+    <header class="header-container">
+        <div class="brand-zone">
+            <img src="img/logo.png" alt="Логотип НКС">
         </div>
-        <div class="ad-body">
-            <img src="https://dick.eversiege.pics/shareables/fvhknmerk3hc/rdudecatspining.gif" alt="Cat">
-            <p><b>Hey Hey Buddy!</b><br>This website have music so turn on autoplay.<br>Click OK to pick up the cat girl!</p>
-            <button class="ad-close-btn" onclick="closeAd()">OK</button>
-        </div>
-    </div>
-</div>
 
-<div class="card">
-    <h1>Welcome to <span class="nick">RosemaryDude</span> Website</h1>
-
-    <a href="music.html" class="music-link"> [ MusicHUB (Some Music its available)] </a>
-
-    <p>
-    Hi i'm RosemaryDude(aka TimurG) 16 Years Old<br>
-    And this is my personal website with my projects and links<br><br>
-    ➤ Artist✎ <br>
-    ➤ RPG game developer ✩ <br>
-    ➤ Voice actor <br>
-    ➤ Techno geek ▢ <br>
-    </p>
-
-    <h2>Links</h2>
-    <div class="row"><span>Email</span><a href="mailto:rosemguy@icloud.com">rosemguy@icloud.com</a></div>
-    <div class="row"><span>Telegram</span><a href="https://t.me/JustTimurG">@JustTimurG</a></div>
-    <div class="row"><span>Links for Channels</span><a href="https://t.me/linksrosemguy">t.me/linksrosemguy</a></div>
-
-    <h2>Projects Links</h2>
-    <div class="row"><span>ROSEMARY FIELD</span><a href="https://t.me/rosemfield">t.me/rosemfield</a></div>
-    <div class="row"><span>North Collective Studio</span><a href="https://northcollectivestudio.github.io/">North Collective Studio Website</a></div>
-
-    <h2>FunHub</h2>
-    <div class="row"><a href="https://dick.eversiege.pics/uploads/cb6d82d744394e00.mp4">Fun1</a></div>
-    <div class="row"><a href="https://dick.eversiege.pics/uploads/kfQTVttznULU7DEUPqzYAtaeWm8Am6Y.mp4">Fun2</a></div>
-    <div class="row"><a href="https://dick.eversiege.pics/uploads/bd179465385e05ed449089ff71bd3698df29ac274a059a02e825a787af3c04e17541f637ebc502eed0e90fe213a82c3cfab745fb7dfa1a6401f050d593398e0e.mp4">Fun3</a></div>
-    <div class="row"><a href="https://dick.eversiege.pics/uploads/intro.mp4.mov">Fun4</a></div>
-    <div class="row"><a href="https://dick.eversiege.pics/uploads/DPFtSqtKDn_tashgatools.mp4">Fun5</a></div>
-    <div class="row"><a href="https://dick.eversiege.pics/uploads/durov-3000.mp4">Fun6</a></div>
-
-    <div style="text-align: center; margin-top: 20px;">
-        <img src="https://dick.eversiege.pics/shareables/fvhknmerk3hc/rdudecatspining.gif" width="100">
-        <p style="font-size: 0.8em;">RosemaryDude 2023-2026 Powered by EVERSIEGE WebStorage</p>
-    </div>
-</div>
-
-<audio id="sfx-run" src="https://dick.eversiege.pics/uploads/engineer_no01.mp3"></audio>
-
-<script>
-function closeAd() {
-    document.getElementById('ad-overlay').style.display = 'none';
-    document.getElementById('bg-music').play();
-}
-
-function runAway() {
-    const x = document.getElementById('run-away-x');
-    const sfx = document.getElementById('sfx-run');
-    sfx.currentTime = 0; sfx.play();
-    const randomX = Math.floor(Math.random() * 200) - 100;
-    const randomY = Math.floor(Math.random() * 200);
-    x.style.transform = `translate(${randomX}px, ${randomY}px)`;
-}
-
-
-
-
-
-
-document.addEventListener('contextmenu', function(e) {
-    e.preventDefault();
-
-});
-
-
-document.onkeydown = function(e) {
-    if(
-        e.keyCode == 123 || // F12
-        (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) || // I, J, C
-        (e.ctrlKey && e.keyCode == 85) // U (view source)
-    ) {
-        warnUser();
-        return false;
-    }
-};
-
-
-setInterval(function() {
-    const startTime = performance.now();
-    debugger; 
-    const endTime = performance.now();
-    if (endTime - startTime > 100) {
-        document.body.innerHTML = `
-            <div style="background:black; color:red; height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;">
-                <h1>DEV TOOLS DETECTED!</h1>
-                <p style="font-size:2em;">WTF ARE YOU DOING HERE? Please just go back</p>
-                <img src="https://dick.eversiege.pics/uploads/wtfareyoudoinghere.png" width="200">
-                <button onclick="location.reload()" style="margin-top:20px; padding:10px 20px; cursor:pointer;">GO BACK</button>
+        <nav class="nav-zone">
+            <div class="nav-button nav-static">
+                <img src="img/home_buttonACT.png" alt="Главная страница">
             </div>
-        `;
-    }
-}, 1000);
-</script>
+            
+            <a href="about.html" class="nav-button nav-link">
+                <img src="img/about_button.png" alt="О нас" class="static">
+                <img src="img/about_buttonACT.png" alt="О нас(наводка хых)" class="active">
+            </a>
+            <a href="staff.html" class="nav-button nav-link">
+                <img src="img/staff_button.png" alt="Персонал" class="static">
+                <img src="img/staff_buttonACT.png" alt="Персонал(наводка хых)" class="active"> 
+            </a>
+        </nav>
+    </header>
+
+    <section class="hero-section">
+        <img src="img/logo big.jpg" alt="Statue" class="main-statue">
+        
+        <h1 class="hero-title">Welcome to [North Collective Studio]</h1>
+        <p class="hero-subtitle">
+            Фотографии, эдиты, дубляж, музыка, веб сериалы и много другого стаффа!
+        </p>
+    </section>
+
+    <main class="main-grid">
+        <a href="projectkant.html" target="_self" class="external-card">
+            <img src="projects/projectkant/logo.png" alt="Карточка Проекта 1">
+        </a>
+        <a href="rosemfield.html" target="_self" class="external-card">
+            <img src="projects/rf/logomain.png" alt="Карточка Проекта 2">
+        </a>
+        <a href="comingsoon.html" target="_self " class="external-card">
+            <img src="img/comingsoon.png" alt="Карточка Проекта 3">
+        </a>
+    </main>
+
+    <footer>
+        <div class="footer-socials">
+            <a href="https://t.me/NORTHCOLLECTIVECH" class="social-link">Telegram</a>
+            <a href="https://www.youtube.com/@NORTHCOLLECTIVESTUDIO" class="social-link">YouTube</a>
+            <a href="https://www.tiktok.com/@NORTHCOLLECTIVESTUDIO" class="social-link">Tiktok</a>
+            <a href="https://discord.gg/PkZDTJNb5T" class="social-link">Discord</a>
+            <a href="https://rosemguy.github.io/RDwebsite/" class="social-link">Made By RosemaryDude</a>
+        </div>
+        <p class="copyright">© 2026 NORTH COLLECTIVE STUDIO. ALL RIGHTS RESERVED.</p>
+    </footer>
 
 </body>
 </html>
