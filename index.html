@@ -2,7 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>RosemaryDude Website</title>
+<title>RosemaryDude Website - Redesign</title>
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Encode+Sans+Condensed:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <audio id="bg-music" loop hidden>
     <source src="https://storage.eversiege.network/shareables/non4ebk9bwyo/Ya%20Soshla%20S%20Uma%20%28Very%20First%20Version%29.mp3" type="audio/mpeg">
@@ -11,6 +16,7 @@
 <audio id="radio-stream" loop hidden>
     <source src="https://fm.lisikpng.com/FoxFM" type="audio/mpeg">
 </audio>
+<audio id="sfx-run" src="https://storage.eversiege.network/shareables/non4ebk9bwyo/engineer_no01.mp3"></audio>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -18,441 +24,417 @@
 
 body {
     margin: 0;
-    font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+    padding: 20px;
+    font-family: "Oswald ", -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
     color: hsl(294, 100%, 95%);
     background: url("https://storage.eversiege.network/shareables/pqdpzztdxu3w/background.jpg") no-repeat center center fixed;
     background-size: cover;
     text-shadow: 1px 1px 2px #000;
     overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
 }
 
 
-.card {
-    max-width: 700px;
-    margin: 40px auto;
-    padding: 25px;
-    background: rgba(15, 5, 25, 0.65);
+.main-window {
+    width: 100%;
+    max-width: 800px;
+    background: rgba(15, 5, 25, 0.75);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-top: 1px solid rgba(255, 255, 255, 0.4);
-    border-radius: 8px;
+    border: 2px solid rgba(0, 255, 255, 0.6);
+    border-radius: 12px;
     box-shadow: 0 0 25px rgba(224, 0, 255, 0.4), inset 0 0 15px rgba(255, 255, 255, 0.1);
-}
-
-
-.tabs-nav {
     display: flex;
-    gap: 5px;
-    border-bottom: 2px solid rgba(0, 255, 255, 0.4);
-    padding-bottom: 8px;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+}
+
+
+.content-area {
+    flex: 1;
+    padding: 30px;
+}
+
+.content-area h1 {
+    font-size: 2.2em;
+    margin-top: 0;
+    line-height: 1.1;
     margin-bottom: 20px;
-    overflow-x: auto;
 }
 
-.tab-btn {
-    background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.4) 100%);
-    border: 1px solid rgba(255,255,255,0.25);
-    border-bottom: none;
+#dynamic-title {
+    color: #ff00ff;
+    text-shadow: 0 0 8px #ff00ff;
+    transition: opacity 0.3s ease;
+}
+
+.static-name {
     color: #00ffff;
-    padding: 8px 16px;
-    cursor: pointer;
-    font-family: inherit;
-    font-weight: bold;
-    border-radius: 5px 5px 0 0;
-    transition: all 0.2s ease;
-    white-space: nowrap;
+    text-shadow: 0 0 8px #00ffff;
 }
 
-.tab-btn:hover {
-    background: rgba(0, 255, 255, 0.2);
-    color: #fff;
-    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
-}
-
-.tab-btn.active {
-    background: linear-gradient(180deg, rgba(0, 255, 255, 0.3) 0%, rgba(55, 0, 255, 0.4) 100%);
-    color: #ffffff;
-    border-color: rgba(0, 255, 255, 0.6);
-    border-bottom: 1px solid transparent;
-    text-shadow: 0 0 5px #00ffff;
-}
 
 .tab-content {
     display: none;
-}
-
-.tab-content.active {
-    display: block;
     animation: fadeIn 0.4s ease;
 }
+.tab-content.active {
+    display: block;
+}
 
-
-.project-card {
+.custom-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+.custom-list li {
+    margin-bottom: 10px;
     display: flex;
-    gap: 15px;
+    align-items: center;
+}
+.custom-list li::before {
+    content: '▷';
+    color: #ffff00;
+    margin-right: 10px;
+    font-size: 1.2em;
+}
+
+
+.sidebar {
+    width: 250px;
+    border-left: 2px solid rgba(0, 255, 255, 0.4);
     background: rgba(0, 0, 0, 0.4);
-    border: 1px solid rgba(0, 255, 255, 0.3);
-    border-radius: 6px;
-    padding: 15px;
-    margin-bottom: 20px;
-    align-items: center;
+    display: flex;
+    flex-direction: column;
 }
 
-.project-img {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    border: 2px solid #ff00ff;
-    border-radius: 4px;
-    box-shadow: 0 0 8px #ff00ff;
-    flex-shrink: 0;
+
+.vertical-nav {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 10px;
+    gap: 5px;
+    margin-top: 10px;
 }
 
-.project-info {
-    flex-grow: 1;
-}
-
-.project-info h3 {
-    margin: 0 0 5px 0;
+.nav-btn {
+    background: transparent;
+    border: 1px solid transparent;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.2);
     color: #00ffff;
-}
-
-
-.deskpet-download-window {
-    background: rgba(20, 5, 30, 0.6);
-    border: 2px solid #ffff00;
-    border-radius: 6px;
-    padding: 20px;
-    margin-top: 25px;
-    box-shadow: 0 0 15px rgba(255, 255, 0, 0.15);
-}
-
-.deskpet-header {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 15px;
-}
-
-.deskpet-icon {
-    width: 64px;
-    height: 64px;
-    object-fit: contain;
-    border: 1px solid #ffff00;
-    background: rgba(0,0,0,0.3);
-    padding: 4px;
-}
-
-.deskpet-meta {
-    font-size: 0.9em;
-    color: #bba2cd;
-    line-height: 1.4;
-}
-
-.deskpet-meta b {
-    color: #ffff00;
-}
-
-.download-btn-wrapper {
-    text-align: center;
-    margin: 20px 0 10px 0;
-}
-
-.download-exe-btn {
-    display: inline-block;
-    background: linear-gradient(180deg, #ffff00 0%, #ffcc00 100%);
-    color: #000;
-    font-weight: bold;
-    font-size: 1.1em;
-    padding: 12px 30px;
-    text-decoration: none;
-    border-radius: 4px;
-    border: 2px solid #fff;
-    box-shadow: 0 0 15px rgba(0, 255, 255, 0.4), inset 0 2px 0 rgba(255,255,255,0.5);
-    text-shadow: none;
-    transition: all 0.2s ease;
-}
-
-.download-exe-btn:hover {
-    background: #fff;
-    color: #ff00ff;
-    box-shadow: 0 0 25px #ff00ff;
-    transform: scale(1.03);
-}
-
-
-.radio-player {
-    background: rgba(0, 0, 0, 0.5);
-    border: 2px solid #00ffff;
-    border-radius: 6px;
-    padding: 15px;
-    margin: 20px 0;
-    box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
-}
-
-.radio-status {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    font-weight: bold;
-    color: #ff00ff;
-    margin-bottom: 15px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.status-dot {
-    width: 10px;
-    height: 10px;
-    background-color: #ff00ff;
-    border-radius: 50%;
-    box-shadow: 0 0 8px #ff00ff;
-    animation: blink 1s infinite;
-}
-
-.radio-controls {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
-}
-
-.radio-btn {
-    background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, rgba(0,0,0,0.6) 100%);
-    border: 1px solid #ffff00;
-    color: #ffff00;
-    padding: 8px 20px;
+    padding: 12px 15px;
+    text-align: left;
     cursor: pointer;
-    font-weight: bold;
-    border-radius: 4px;
+    font-size: 1.1em;
     font-family: inherit;
+    font-weight: bold;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-radius: 4px;
+}
+
+.nav-btn:hover {
+    background: rgba(0, 255, 255, 0.15);
+    color: #fff;
+    padding-left: 20px;
+}
+
+.nav-btn.active {
+    background: linear-gradient(90deg, rgba(0, 255, 255, 0.2) 0%, rgba(0,0,0,0.5) 100%);
+    color: #ffffff;
+    text-shadow: 0 0 5px #00ffff;
+    border: 1px solid #ffcc00;
+    box-shadow: inset 0 0 10px rgba(0,255,255,0.2), 0 0 8px rgba(255, 204, 0, 0.3);
+    border-left: 4px solid #00ffff;
+}
+
+
+.nav-icon {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 4px currentColor);
+}
+
+.sidebar-contacts {
+    padding: 15px;
+    border-top: 2px solid rgba(0, 255, 255, 0.4);
+    background: rgba(0,0,0,0.6);
+}
+.sidebar-contacts h3 {
+    margin: 0 0 10px 0;
+    font-size: 1em;
+    color: #ffff00;
+}
+.contact-icons {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+}
+.contact-icons a {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background: #3700ff;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 30px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border: 1px solid #00ffff;
     transition: 0.2s;
 }
-
-.radio-btn:hover {
-    background: #ffff00;
-    color: #000;
-    box-shadow: 0 0 10px #ffff00;
+.contact-icons a:hover {
+    box-shadow: 0 0 10px #00ffff;
+    transform: scale(1.1);
 }
 
-.volume-box {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: #00ffff;
-    font-weight: bold;
-}
-
-.volume-slider {
-    cursor: pointer;
-    accent-color: #00ffff;
-}
-
-h1 { color: #ff00ff; font-size: 2.2em; text-align: center; margin-top: 0; text-shadow: 0 0 8px #ff00ff; }
-h2 { color: #00ffff; font-size: 1.4em; border-bottom: 1px dashed rgba(0,255,255,0.4); padding-bottom: 5px; margin-top: 20px; }
-
+h2 { color: #00ffff; font-size: 1.3em; border-bottom: 1px dashed rgba(0,255,255,0.4); padding-bottom: 5px; margin-top: 20px; }
 a { color: #ffff00; text-decoration: underline; transition: color 0.2s; }
-a:hover { color: #ff0055; text-shadow: 0 0 5px #ff0055; }
+a:hover { color: #ff00ff; text-shadow: 0 0 5px #ff00ff; }
 
 .row { 
     display: flex; 
     justify-content: space-between; 
     margin: 10px 0; 
-    padding: 8px; 
-    background: rgba(255,255,255,0.03); 
-    border-radius: 4px;
+    padding: 10px 12px; 
+    background: rgba(255,255,255,0.05); 
+    border-radius: 4px; 
     border-left: 3px solid #3700ff;
-}
-.nick { color: #00ffff; font-weight: bold; text-shadow: 0 0 10px #00ffff; }
-
-
-#ad-overlay {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.85);
-    display: flex;
-    justify-content: center;
     align-items: center;
-    z-index: 9999;
 }
 
-.ad-window {
+
+#warning-popup {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
     width: 320px;
-    background: #c0c0c0;
-    border: 3px outset #fff;
-    color: #000;
-    text-shadow: none;
-    box-shadow: 10px 10px 0 rgba(0,0,0,0.5);
-    position: relative;
-    padding-bottom: 10px;
+    background: rgba(15, 5, 25, 0.90);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 2px solid rgba(255, 0, 255, 0.8);
+    border-radius: 8px;
+    box-shadow: 0 0 25px rgba(255, 0, 255, 0.5), inset 0 0 10px rgba(0, 255, 255, 0.2);
+    color: hsl(294, 100%, 95%);
+    z-index: 9999;
+    font-family: inherit;
+    animation: slideDown 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
-.ad-header {
-    background: linear-gradient(90deg, #000080, #0080ff);
-    color: white;
-    padding: 4px 6px;
+@keyframes slideDown {
+    from { top: -150px; opacity: 0; }
+    to { top: 20px; opacity: 1; }
+}
+
+.warning-header {
+    background: linear-gradient(90deg, rgba(255, 0, 255, 0.4), rgba(0, 255, 255, 0.2));
+    color: #00ffff;
+    padding: 8px 12px;
     display: flex;
     justify-content: space-between;
-    font-family: sans-serif;
+    align-items: center;
     font-weight: bold;
+    font-size: 0.95em;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.4);
+    text-shadow: 0 0 5px #00ffff;
 }
 
 #run-away-x {
     cursor: pointer;
-    position: relative;
-    transition: all 0.1s ease;
-    display: inline-block;
-    padding: 0 4px;
+    background: transparent;
+    color: #ff00ff;
+    border: 1px solid #ff00ff;
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-weight: bold;
+    font-size: 0.85em;
+    transition: all 0.2s ease;
+    text-shadow: 0 0 5px #ff00ff;
 }
 
-.ad-body { padding: 15px; text-align: center; font-size: 0.9em; }
-.ad-body img { width: 100px; margin-bottom: 10px; }
-.ad-close-btn { cursor: pointer; background: #c0c0c0; border: 2px outset #fff; padding: 5px 20px; font-weight: bold; }
+#run-away-x:hover {
+    background: #ff00ff;
+    color: #000;
+    box-shadow: 0 0 10px #ff00ff;
+}
+
+.warning-body { padding: 20px; text-align: center; font-size: 0.9em; }
+.warning-body img { width: 60px; margin-bottom: 15px; border-radius: 50%; border: 1px solid #00ffff; box-shadow: 0 0 10px #00ffff; }
+.warning-body p { margin: 0 0 15px 0; line-height: 1.4; }
+
+.warning-btn { 
+    cursor: pointer; 
+    background: transparent; 
+    border: 1px solid #00ffff; 
+    border-radius: 4px;
+    padding: 8px 30px; 
+    font-weight: bold; 
+    font-family: inherit;
+    color: #00ffff;
+    text-shadow: 0 0 5px #00ffff;
+    box-shadow: inset 0 0 8px rgba(0,255,255,0.2);
+    transition: all 0.2s ease;
+}
+.warning-btn:hover {
+    background: rgba(0, 255, 255, 0.2);
+    color: #fff;
+    box-shadow: 0 0 15px #00ffff;
+}
 
 
-@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-h1 { animation: blink 3s infinite; }
 </style>
 </head>
 
 <body>
 
-<div id="ad-overlay">
-    <div class="ad-window" id="ad-box">
-        <div class="ad-header">
-            <span>Important Message</span>
-            <span id="run-away-x" onmouseover="runAway()" onclick="runAway()">[X]</span>
-        </div>
-        <div class="ad-body">
-            <img src="https://dick.eversiege.pics/shareables/fvhknmerk3hc/rdudecatspining.gif" alt="Cat">
-            <p><b>Hey Hey Buddy!</b><br>This website has live radio so turn on autoplay.<br>Click OK to pick up the cat girl!</p>
-            <button class="ad-close-btn" onclick="closeAd()">OK</button>
-        </div>
+<div id="warning-popup">
+    <div class="warning-header">
+        <span>System Warning</span>
+
+    </div>
+    <div class="warning-body">
+        
+        <p><b>Hey Hey Buddy!</b><br>Turn on autoplay for live radio and welcome!</p>
+        <button class="warning-btn" onclick="closeAd()">OK</button>
     </div>
 </div>
 
-<div class="card">
-    <h1>Welcome to <span class="nick">RosemaryDude</span></h1>
+<div class="main-window">
+    
 
-    <div class="tabs-nav">
-        <button class="tab-btn active" onclick="openTab(event, 'main')">Home</button>
-        <button class="tab-btn" onclick="openTab(event, 'projects')">Projects & RosemField</button>
-        <button class="tab-btn" onclick="openTab(event, 'music')">FoxFM Radio</button>
-        <button class="tab-btn" onclick="openTab(event, 'fun')">Files & Fun</button>
-    </div>
-
-    <div id="main" class="tab-content active">
-        <p>
-            Hi i'm RosemaryDude (aka TimurG) 16 Years Old<br>
-            And this is my personal website with my projects and links<br><br>
-            ➤ Artist ✎ <br>
-            ➤ RPG game developer ✩ <br>
-            ➤ Voice actor <br>
-            ➤ Techno geek ▢ <br>
-        </p>
-
-        <h2>Contacts / Links</h2>
-        <div class="row"><span>Email</span><a href="mailto:rosemguy@icloud.com">rosemguy@icloud.com</a></div>
-        <div class="row"><span>Telegram</span><a href="https://t.me/JustTimurG">@JustTimurG</a></div>
-        <div class="row"><span>Links for Channels</span><a href="https://t.me/linksrosemguy">t.me/linksrosemguy</a></div>
-    </div>
-
-    <div id="projects" class="tab-content">
-        <h2>Game Projects & Development</h2>
-        <p>Here are the key projects and ongoing developments and where im working.</p>
+    <div class="content-area">
         
-        <div class="project-card">
-            <img class="project-img" src="https://dick.eversiege.pics/shareables/a428dbp0byd4/avatar.png" alt="ROSEMARY FIELD Logo">
-            <div class="project-info">
-                <h3>ROSEMARY FIELD <span style="color: #ffff00; font-size: 0.8em;">[In Development!]</span></h3>
-                <p style="font-size: 0.85em; margin: 0 0 8px 0; color: #bba2cd;">
-                    The main RPG project currently in active development. Follow updates, screenshots, and lore on the official channel.
-                </p>
-                <a href="https://t.me/rosemfield" target="_blank">Open Telegram Channel</a>
+        <h1>
+            <span id="dynamic-title" style="animation: blink 3s infinite;">Welcome to</span><br>
+            <span class="static-name">Rosemary Dude</span>
+        </h1>
+        
+        <div id="main" class="tab-content active">
+            <p>
+                <b>English:</b> Hi i'm RosemaryDude I'm 16 Years Old<br>
+                And this is my personal website - a portfolio site with my projects and links.
+            </p>
+            <p>
+                <b>Русский:</b> Привет я Розмариновый Чудик! Мне 16 лет<br>
+                И это мой личный сайт - сайт порфолио с моими проектами и ссылками.
+            </p>
+            <ul class="custom-list">
+                <li>Artist ✎</li>
+                <li>RPG game developer ✩</li>
+                <li>Voice actor</li>
+                <li>Techno geek </li>
+            </ul>
+
+            <div style="margin-top: 40px; text-align: center; border-top: 1px dashed rgba(255,255,255,0.2); padding-top: 20px;">
+                <p style="font-size: 0.8em; color: #8a739b;">RosemaryDude 2023-2026 Powered by EVERSIEGE WebStorage</p>
             </div>
         </div>
 
-        <div class="project-card">
-            <img class="project-img" src="https://storage.eversiege.network/shareables/jmpkn8b7a556/ncslogo.jpg" alt="NCS Logo">
-            <div class="project-info">
-                <h3>North Collective Studio</h3>
-                <p style="font-size: 0.85em; margin: 0 0 8px 0; color: #bba2cd;">
-                    Photos, edits, dubbing, music, web series, and much more!.
-                </p>
-                <a href="https://northcollectivestudio.github.io/" target="_blank">Visit Studio Website</a>
-            </div>
-        </div>
-
-        <h2>Software Releases / Utilities</h2>
-        <div class="deskpet-download-window">
-            <div class="deskpet-header">
-                <img class="deskpet-icon" src="https://storage.eversiege.network/shareables/fvhknmerk3hc/rdudecatspining.gif" alt="Deskpet Icon">
-                <div>
-                    <h3 style="margin: 0; color: #ffff00; font-size: 1.2em;">RosemDude Cat Deskpet 2003</h3>
-                    <span style="font-size: 0.8em; color: #00ff00; font-weight: bold;">✓ Verified by No one but its true (0 viruses)</span>
-                </div>
-            </div>
+        <div id="projects" class="tab-content">
+            <h2>Game Projects & Development</h2>
+            <p style="font-size: 0.9em; color: #ccc;">Here are the key projects and ongoing developments.</p>
             
-            <div class="deskpet-meta">
-                <b>Version:</b> v1.0.0 (Useless Build)<br>
-                <b>Platform:</b> 10 / 11<br>
-                <b>Description:</b> Your personal pocket cat assistant right on your desktop. Walks over your windows, drops cringe and cool voice lines, sits on your taskbar, and monitors your FPS. True desktop pet aesthetics straight out of 2003.
+            <div class="row">
+                <span>ROSEMARY FIELD [In Development!]</span>
+                <a href="https://t.me/rosemfield" target="_blank">Telegram</a>
+            </div>
+            <div class="row">
+                <span>North Collective Studio</span>
+                <a href="https://northcollectivestudio.github.io/" target="_blank">Website</a>
             </div>
 
-            <div class="download-btn-wrapper">
-                <a href="https://storage.eversiege.network/shareables/wctqs013warq/RosemDudeCatDeskPet2003-v1.zip" class="download-exe-btn" target="_blank">DOWNLOAD DESKPET.EXE</a>
+            <h2>Software Releases</h2>
+            <div class="row">
+                <span>RosemDude Cat Deskpet 2003</span>
+                <a href="https://dick.eversiege.pics/shareables/wctqs013warq/RosemDudeCatDeskPet2003-v1.zip" target="_blank">DOWNLOAD .EXE</a>
             </div>
         </div>
-    </div>
 
-    <div id="music" class="tab-content">
-        <h2>FoxFM Live Radio</h2>
-        <p>Live stream of the internet radio station. Background music will pause when you switch to this tab!</p>
+        <div id="music" class="tab-content">
+            <h2>FoxFM Live Radio</h2>
+            <p style="font-size: 0.9em; color: #ccc;">Background music will pause when you switch to this tab!</p>
+            
+            <div style="margin-top: 20px; display: flex; gap: 10px;">
+                <button onclick="playRadio()" style="padding: 10px 20px; background: #ff00ff; color: #fff; font-weight:bold; cursor:pointer; border:1px solid #fff; border-radius:4px;">PLAY RADIO</button>
+                <button onclick="pauseRadio()" style="padding: 10px 20px; background: transparent; color: #00ffff; font-weight:bold; cursor:pointer; border:1px solid #00ffff; border-radius:4px;">PAUSE</button>
+            </div>
+            <div class="row" style="margin-top: 20px;">
+                <span>Listen externally:</span>
+                <a href="https://fm.lisikpng.com/FoxFM" target="_blank">fm.lisikpng.com/FoxFM</a>
+            </div>
+        </div>
+
+        <div id="fun" class="tab-content">
+            <h2>Files and Fun</h2>
+            <ul class="custom-list">
+                <li><a href="https://storage.eversiege.network/shareables/5rzwptn4cjmk/SwitchboardOS5.1_iPhone3%2C1_Custom_Untether_Logo.ipsw" target="_blank">iPhone 4 NONUI FIRMWARE</a></li>
+                <li><a href="https://storage.eversiege.network/shareables/non4ebk9bwyo/cb6d82d744394e00.mp4" target="_blank">Meme #1 (MP4)</a></li>
+                <li><a href="https://storage.eversiege.network/shareables/non4ebk9bwyo/durov-3000.mp4" target="_blank">Durov 3000 (MP4)</a></li>
+            </ul>
+        </div>
         
-        <div class="radio-player">
-            <div class="radio-status">
-                <div class="status-dot"></div>
-                <span>FoxFM LIVE ON AIR</span>
-            </div>
-            <div class="radio-controls">
-                <button class="radio-btn" onclick="playRadio()">PLAY</button>
-                <button class="radio-btn" onclick="pauseRadio()">PAUSE</button>
-                <div class="volume-box">
-                    <span>VOLUME:</span>
-                    <input type="range" class="volume-slider" min="0" max="1" step="0.05" value="0.5" oninput="changeVolume(this.value)">
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <span>Or just listening by this link on aimp or webrowser:</span>
-            <a href="https://fm.lisikpng.com/FoxFM" target="_blank">fm.lisikpng.com/FoxFM</a>
-        </div>
     </div>
 
-    <div id="fun" class="tab-content">
-        <h2>FunHub / Media Files</h2>
-        <p>Direct links to local jokes, videos, and archives:</p>
 
-        <div class="row"><span>iPhone 4 NONUI FIRMWARE</span><a href="https://storage.eversiege.network/shareables/5rzwptn4cjmk/SwitchboardOS5.1_iPhone3%2C1_Custom_Untether_Logo.ipsw" target="_blank">Download</a></div>
-        <div class="row"><span>Meme #1 (MP4)</span><a href="https://storage.eversiege.network/uploads/cb6d82d744394e00.mp4" target="_blank">Watch / Download</a></div>
-        <div class="row"><span>Meme #2 (MP4)</span><a href="https://storage.eversiege.network/uploads/kfQTVttznULU7DEUPqzYAtaeWm8Am6Y.mp4" target="_blank">Watch / Download</a></div>
-        <div class="row"><span>Meme #3 (MP4)</span><a href="https://storage.eversiege.network/uploads/bd179465385e05ed449089ff71bd3698df29ac274a059a02e825a787af3c04e17541f637ebc502eed0e90fe213a82c3cfab745fb7dfa1a6401f050d593398e0e.mp4" target="_blank">Watch / Download</a></div>
-        <div class="row"><span>Tashtagole (MP4)</span><a href="https://storage.eversiege.network/uploads/DPFtSqtKDn_tashgatools.mp4" target="_blank">Watch / Download</a></div>
-        <div class="row"><span>Durov 3000 (MP4)</span><a href="https://storage.eversiege.network/uploads/durov-3000.mp4" target="_blank">Watch / Download</a></div>
-    </div>
+    <div class="sidebar">
 
-    <div style="text-align: center; margin-top: 30px; border-top: 1px dashed rgba(255,255,255,0.2); padding-top: 15px;">
-        <img src="https://storage.eversiege.network/shareables/fvhknmerk3hc/rdudecatspining.gif" width="80" alt="Spinning Cat">
-        <p style="font-size: 0.8em; color: #8a739b;">RosemaryDude 2023-2026 Powered by EVERSIEGE WebStorage</p>
+        <nav class="vertical-nav">
+            <button class="nav-btn active" onclick="openTab(event, 'main', 'Welcome to')">
+                <svg class="nav-icon" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg> Home
+            </button>
+            <button class="nav-btn" onclick="openTab(event, 'projects', 'Projects of')">
+                <svg class="nav-icon" viewBox="0 0 24 24"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.5 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg> Projects & RosemField
+            </button>
+            <button class="nav-btn" onclick="openTab(event, 'music', 'Radio not from')">
+                <svg class="nav-icon" viewBox="0 0 24 24"><path d="M12 3v9.28c-.47-.17-.97-.28-1.5-.28C8.01 12 6 14.01 6 16.5S8.01 21 10.5 21c2.31 0 4.2-1.75 4.45-4H15V6h4V3h-7z"/></svg> Fox FM
+            </button>
+            <button class="nav-btn" onclick="openTab(event, 'fun', 'Files from')">
+                <svg class="nav-icon" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg> Files and Fun
+            </button>
+        </nav>
+
+
+<div class="sidebar-contacts">
+    <h3>Contacts & Links</h3>
+    <div class="contact-icons">
+
+        <a href="mailto:rosemguy@icloud.com" title="Email" class="contact-btn">
+            <svg xmlns="http://w3.org" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="20" height="16" x="2" y="4" rx="2"/>
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+            </svg>
+        </a>
+
+        <a href="https://t.me" title="Telegram" class="contact-btn">
+            <svg xmlns="http://w3.org" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m22 2-7 20-4-9-9-4Z"/>
+                <path d="M22 2 11 13"/>
+            </svg>
+        </a>
+  
+        <a href="https://t.me" title="Links" class="contact-btn">
+            <svg xmlns="http://w3.org" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+            </svg>
+        </a>
     </div>
 </div>
 
-<audio id="sfx-run" src="https://storage.eversiege.network/uploads/engineer_no01.mp3"></audio>
 
 <script>
 const bgMusic = document.getElementById('bg-music');
@@ -461,78 +443,63 @@ const radioStream = document.getElementById('radio-stream');
 bgMusic.volume = 0.4;
 radioStream.volume = 0.5;
 
-
-function openTab(evt, tabName) {
+function openTab(evt, tabName, newTitleText) {
     const tabContents = document.getElementsByClassName("tab-content");
     for (let i = 0; i < tabContents.length; i++) {
         tabContents[i].classList.remove("active");
     }
 
-    const tabBtns = document.getElementsByClassName("tab-btn");
-    for (let i = 0; i < tabBtns.length; i++) {
-        tabBtns[i].classList.remove("active");
+    const navBtns = document.getElementsByClassName("nav-btn");
+    for (let i = 0; i < navBtns.length; i++) {
+        navBtns[i].classList.remove("active");
     }
 
     document.getElementById(tabName).classList.add("active");
     evt.currentTarget.classList.add("active");
 
+    const dynamicTitleElement = document.getElementById('dynamic-title');
+    dynamicTitleElement.style.opacity = 0; 
+    setTimeout(() => {
+        dynamicTitleElement.innerText = newTitleText;
+        dynamicTitleElement.style.opacity = 1; 
+    }, 200);
 
     if (tabName === 'music') {
         bgMusic.pause(); 
         playRadio();     
     } else {
         radioStream.pause(); 
-        if (document.getElementById('ad-overlay').style.display === 'none') {
+        if (document.getElementById('warning-popup').style.display === 'none') {
             bgMusic.play().catch(e => {});
         }
     }
 }
 
-
-function playRadio() {
-    radioStream.play().catch(e => console.log("Radio stream blocked by browser policy"));
-}
-
-function pauseRadio() {
-    radioStream.pause();
-}
-
-function changeVolume(val) {
-    radioStream.volume = val;
-}
+function playRadio() { radioStream.play().catch(e => console.log("Blocked by policy")); }
+function pauseRadio() { radioStream.pause(); }
 
 function closeAd() {
-    document.getElementById('ad-overlay').style.display = 'none';
-    bgMusic.play().catch(e => console.log("Autoplay blocked by browser policy"));
+    document.getElementById('warning-popup').style.display = 'none';
+    bgMusic.play().catch(e => console.log("Autoplay blocked"));
 }
 
 function runAway() {
     const x = document.getElementById('run-away-x');
     const sfx = document.getElementById('sfx-run');
-    
     sfx.currentTime = 0; 
     sfx.play().catch(e => {});
     
-    const randomX = Math.floor(Math.random() * 200) - 100;
-    const randomY = Math.floor(Math.random() * 200);
+    const randomX = Math.floor(Math.random() * 150) - 75;
+    const randomY = Math.floor(Math.random() * 80) - 20;
     x.style.transform = `translate(${randomX}px, ${randomY}px)`;
 }
 
 function warnUser() {
     console.log("%cSTOP!", "color: red; font-size: 30px; font-weight: bold;");
 }
-
-
-document.addEventListener('contextmenu', function(e) {
-    e.preventDefault();
-});
-
+document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
 document.onkeydown = function(e) {
-    if(
-        e.keyCode == 123 || 
-        (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) || 
-        (e.ctrlKey && e.keyCode == 85) 
-    ) {
+    if( e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) || (e.ctrlKey && e.keyCode == 85) ) {
         warnUser();
         return false;
     }
@@ -547,7 +514,7 @@ setInterval(function() {
             <div style="background:black; color:red; height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; font-family:monospace;">
                 <h1>DEV TOOLS DETECTED!</h1>
                 <p style="font-size:1.8em;">WTF ARE YOU DOING HERE? Please just go back</p>
-                <img src="https://storage.eversiege.network/uploads/wtfareyoudoinghere.png" width="200">
+                <img src="https://storage.eversiege.network/shareables/non4ebk9bwyo/wtfareyoudoinghere.png" width="200" onerror="this.src='https://dick.eversiege.pics/uploads/wtfareyoudoinghere.png'">
                 <button onclick="location.reload()" style="margin-top:20px; padding:10px 20px; cursor:pointer; font-weight:bold;">GO BACK</button>
             </div>
         `;
